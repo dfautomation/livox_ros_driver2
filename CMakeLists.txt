@@ -27,6 +27,9 @@ if(ROS_EDITION STREQUAL "ROS1")
     chrono
   )
 
+  set(LIVOX_LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64)
+  set(LIVOX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SDK/include/)
+
   ## Find catkin macros and libraries
   ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
   ## is used, also find other catkin packages
@@ -91,7 +94,7 @@ if(ROS_EDITION STREQUAL "ROS1")
   set(CMAKE_CXX_EXTENSIONS OFF)
 
   ## make sure the livox_lidar_sdk_static library is installed
-  find_library(LIVOX_LIDAR_SDK_LIBRARY  liblivox_lidar_sdk_static.a    /usr/local/lib)
+  ## find_library(LIVOX_LIDAR_SDK_LIBRARY  liblivox_lidar_sdk_static.a    /usr/local/lib)
 
   ## PCL library
   link_directories(${PCL_LIBRARY_DIRS})
@@ -149,6 +152,7 @@ if(ROS_EDITION STREQUAL "ROS1")
     ${catkin_INCLUDE_DIRS}
     ${PCL_INCLUDE_DIRS}
     ${APR_INCLUDE_DIRS}
+    ${LIVOX_INCLUDE_DIR}
     3rdparty
     src
   )
@@ -157,7 +161,7 @@ if(ROS_EDITION STREQUAL "ROS1")
   # link libraries
   #---------------------------------------------------------------------------------------
   target_link_libraries(${PROJECT_NAME}_node
-    ${LIVOX_LIDAR_SDK_LIBRARY}
+    ${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64/liblivox_lidar_sdk_static.a
     ${Boost_LIBRARY}
     ${catkin_LIBRARIES}
     ${PCL_LIBRARIES}
@@ -246,7 +250,7 @@ else(ROS_EDITION STREQUAL "ROS2")
   )
 
   ## make sure the livox_lidar_sdk_shared library is installed
-  find_library(LIVOX_LIDAR_SDK_LIBRARY liblivox_lidar_sdk_shared.so /usr/local/lib REQUIRED)
+  ## find_library(LIVOX_LIDAR_SDK_LIBRARY liblivox_lidar_sdk_shared.so /usr/local/lib REQUIRED)
 
   ##
   find_path(LIVOX_LIDAR_SDK_INCLUDE_DIR
@@ -298,13 +302,14 @@ else(ROS_EDITION STREQUAL "ROS2")
     ${APR_INCLUDE_DIRS}
     ${LIVOX_LIDAR_SDK_INCLUDE_DIR}
     ${LIVOX_INTERFACES_INCLUDE_DIRECTORIES}   # for custom msgs
+    ${LIVOX_INCLUDE_DIR}
     3rdparty
     src
   )
 
   # link libraries
   target_link_libraries(${PROJECT_NAME}
-    ${LIVOX_LIDAR_SDK_LIBRARY}
+    ${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64/liblivox_lidar_sdk_static.a
     ${LIVOX_INTERFACE_TARGET}   # for custom msgs
     ${PPT_LIBRARY}
     ${Boost_LIBRARY}
