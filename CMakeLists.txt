@@ -162,7 +162,7 @@ if(ROS_EDITION STREQUAL "ROS1")
   #---------------------------------------------------------------------------------------
   target_link_libraries(${PROJECT_NAME}_node
     ${LIVOX_LIDAR_SDK_LIBRARY}
-    ${Boost_LIBRARY}
+    ${Boost_LIBRARIES}
     ${catkin_LIBRARIES}
     ${PCL_LIBRARIES}
     ${APR_LIBRARIES}
@@ -311,7 +311,7 @@ else(ROS_EDITION STREQUAL "ROS2")
     ${LIVOX_LIDAR_SDK_LIBRARY}
     ${LIVOX_INTERFACE_TARGET}   # for custom msgs
     ${PPT_LIBRARY}
-    ${Boost_LIBRARY}
+    ${Boost_LIBRARIES}
     ${PCL_LIBRARIES}
     ${APR_LIBRARIES}
   )
