@@ -165,8 +165,8 @@ if(ROS_EDITION STREQUAL "ROS1")
   # link libraries
   #---------------------------------------------------------------------------------------
   target_link_libraries(${PROJECT_NAME}_node
-    ${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64/liblivox_lidar_sdk_static.a
-    ${Boost_LIBRARY}
+    ${LIVOX_LIBS_DIR}/liblivox_lidar_sdk_static.a
+    ${Boost_LIBRARIES}
     ${catkin_LIBRARIES}
     ${PCL_LIBRARIES}
     ${APR_LIBRARIES}
@@ -176,6 +176,10 @@ if(ROS_EDITION STREQUAL "ROS1")
   #---------------------------------------------------------------------------------------
   # Install
   #---------------------------------------------------------------------------------------
+
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64/liblivox_lidar_sdk_static.a
+    DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  )
 
   install(TARGETS ${PROJECT_NAME}_node
     ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
@@ -316,7 +320,7 @@ else(ROS_EDITION STREQUAL "ROS2")
     ${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64/liblivox_lidar_sdk_static.a
     ${LIVOX_INTERFACE_TARGET}   # for custom msgs
     ${PPT_LIBRARY}
-    ${Boost_LIBRARY}
+    ${Boost_LIBRARIES}
     ${PCL_LIBRARIES}
     ${APR_LIBRARIES}
   )
