@@ -1,3 +1,7 @@
+if(NOT DEFINED ROS_EDITION)
+  set(ROS_EDITION "ROS1")
+endif()
+
 # judge which cmake codes to use 
 if(ROS_EDITION STREQUAL "ROS1")
 
