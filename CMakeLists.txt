@@ -31,7 +31,27 @@ if(ROS_EDITION STREQUAL "ROS1")
     chrono
   )
 
-  set(LIVOX_LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64)
+  # Detect Ubuntu version
+  if(EXISTS "/etc/os-release")
+    file(READ "/etc/os-release" OS_RELEASE_CONTENTS)
+    string(REGEX MATCH "VERSION_ID=\"([0-9]+\\.[0-9]+)\"" _ ${OS_RELEASE_CONTENTS})
+    set(OS_VERSION ${CMAKE_MATCH_1})
+    message(STATUS "Detected Ubuntu version: ${OS_VERSION}")
+  else()
+    set(OS_VERSION "Unknown")
+    message(WARNING "Could not detect OS version; defaulting to base path")
+  endif()
+
+  if(OS_VERSION STREQUAL "20.04")
+    set(LIVOX_LIBS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64/Ubuntu20.04")
+  elseif(OS_VERSION STREQUAL "18.04")
+    set(LIVOX_LIBS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64/Ubuntu18.04")
+  else()
+    set(LIVOX_LIBS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64")
+    message(WARNING "Unknown OS version, falling back to default LIVOX_LIBS_DIR: ${LIVOX_LIBS_DIR}")
+endif()
+
+  #set(LIVOX_LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64)
   set(LIVOX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SDK/include/)
 
   ## Find catkin macros and libraries
