@@ -51,7 +51,6 @@ if(ROS_EDITION STREQUAL "ROS1")
     message(WARNING "Unknown OS version, falling back to default LIVOX_LIBS_DIR: ${LIVOX_LIBS_DIR}")
 endif()
 
-  #set(LIVOX_LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64)
   set(LIVOX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SDK/include/)
 
   ## Find catkin macros and libraries
@@ -197,7 +196,7 @@ endif()
   # Install
   #---------------------------------------------------------------------------------------
 
-  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/SDK/lib/x64/liblivox_lidar_sdk_static.a
+  install(FILES ${LIVOX_LIBS_DIR}/liblivox_lidar_sdk_static.a
     DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   )
 
