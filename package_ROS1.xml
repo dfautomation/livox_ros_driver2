@@ -73,6 +73,7 @@
   <depend>sensor_msgs</depend>
   <depend>git</depend>
   <depend>apr</depend>
+  <depend>livox_sdk2</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
